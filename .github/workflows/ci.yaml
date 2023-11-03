@@ -97,4 +97,5 @@ jobs:
     - name: Run tests
       run: ./mvnw -B -U clean verify
       continue-on-error: ${{ matrix.java != '17' }}
-#test
+#testing
+
