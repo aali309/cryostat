@@ -102,6 +102,7 @@ jobs:
     permissions:
       packages: write
       contents: read
+      pull-requests: write
     steps:
     - uses: actions/checkout@v3
       with:
@@ -155,6 +156,7 @@ jobs:
     - name: Build application
       run: ./mvnw -B -U -Dquarkus.container-image.build=false clean verify
       continue-on-error: ${{ matrix.java != '17' }}
+
     - name: Add workflow result as comment on PR
       uses: actions/github-script@v6
       if: always()
@@ -164,7 +166,7 @@ jobs:
           const url = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
           const success = '${{ job.status }}' === 'success';
           const body = `${name}: ${success ? 'All tests pass ✅' : 'At least one test failed ❌'}\n${url}`;
-          await github.rest.issues.createComment({
+          github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
@@ -177,3 +179,4 @@ jobs:
         sha: ${{ needs.checkout-branch.outputs.PR_head_sha}}
         token: ${{ secrets.GITHUB_TOKEN }}
         status: ${{ job.status }}
+#testing
