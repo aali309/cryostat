@@ -163,7 +163,7 @@ jobs:
       if: always()
       with:
         script: |
-          const name = '${{ github.workflow.job.name}}';
+          const name = '${{github.workflow}}';
           const url = '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}';
           const success = '${{ job.status }}' === 'success';
           const body = `${name}: ${success ? 'All tests pass ✅' : 'At least one test failed ❌'}\n${url}`;
