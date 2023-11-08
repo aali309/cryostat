@@ -129,3 +129,4 @@ jobs:
     - name: Print image URL
       run: echo "Image pushed to ${{ steps.push-to-quay.outputs.registry-paths }}"
       if: ${{ matrix.java == '17' && github.repository_owner == 'cryostatio' }}
+#test
