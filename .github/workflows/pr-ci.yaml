@@ -103,6 +103,7 @@ jobs:
       packages: write
       contents: read
       pull-requests: write
+      statuses: write
     steps:
     - uses: actions/checkout@v3
       with:
@@ -177,7 +178,7 @@ jobs:
       uses: myrotvorets/set-commit-status-action@master
       if: always()
       with:
-        sha: ${{ github.sha}}
+        sha: ${{ needs.checkout-branch.outputs.PR_head_sha}}
         token: ${{ secrets.GITHUB_TOKEN }}
         status: ${{ job.status }}
 #testing
