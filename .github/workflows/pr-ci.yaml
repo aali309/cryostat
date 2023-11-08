@@ -93,4 +93,4 @@ jobs:
     - name: Build application
       run: ./mvnw -B -U -Dquarkus.container-image.build=false clean verify
       continue-on-error: ${{ matrix.java != '17' }}
-#test
+#testing
