@@ -172,11 +172,12 @@ jobs:
             repo: context.repo.repo,
             body: body
           })
+
     - name: Set latest commit status as ${{ job.status }}
       uses: myrotvorets/set-commit-status-action@master
       if: always()
       with:
-        sha: ${{ needs.checkout-branch.outputs.PR_head_sha}}
+        sha: ${{ github.sha}}
         token: ${{ secrets.GITHUB_TOKEN }}
         status: ${{ job.status }}
-#testing
+#test
