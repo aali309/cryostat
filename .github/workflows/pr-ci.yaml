@@ -312,11 +312,11 @@ jobs:
       run: |
         git config --global user.email "ci-bot@example.com"
         git config --global user.name "CI Bot"
-        - name: Download OpenAPI diff
-        uses: actions/download-artifact@v3
-        with:
-          name: openapi-diff
-          path: openapi.diff
+    - name: Download OpenAPI diff
+      uses: actions/download-artifact@v3
+      with:
+        name: openapi-diff
+        path: openapi.diff
     - name: Download GraphQL diff
       uses: actions/download-artifact@v3
       with:
