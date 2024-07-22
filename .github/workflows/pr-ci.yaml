@@ -16,7 +16,7 @@ env:
 jobs:
   check-before-build:
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'cryostatio' && github.event.issue.pull_request && startsWith(github.event.comment.body, '/build_test')
+    if: github.event.issue.pull_request && startsWith(github.event.comment.body, '/build_test')
 
     permissions:
       pull-requests: write
@@ -295,3 +295,21 @@ jobs:
             repo: context.repo.repo,
             body: commentBody
           });
+
+  auto-commit-schemas:
+    needs: [update-schemas, checkout-branch]
+    runs-on: ubuntu-latest
+    if: needs.update-schemas.outputs.OPENAPI_STATUS != '0' || needs.update-schemas.outputs.GRAPHQL_STATUS != '0'
+    steps:
+    - name: Check out PR branch
+      uses: actions/checkout@v3
+      with:
+        repository: ${{ needs.checkout-branch.outputs.PR_repo }}
+        ref: ${{ needs.checkout-branch.outputs.PR_head_ref }}
+        submodules: true
+        fetch-depth: 0
+    - name: Commit and push schema updates
+      run: |
+        git add schema/openapi.yaml schema/schema.graphql
+        git commit -m "CI commiting detected Schema changes"
+        git push origin ${{ needs.checkout-branch.outputs.PR_head_ref }}
