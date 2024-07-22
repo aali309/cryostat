@@ -205,7 +205,6 @@ components:
         - RUNNING
         - STOPPED
         - CLOSED
-        - TEST
       type: string
     RequestData:
       properties:
