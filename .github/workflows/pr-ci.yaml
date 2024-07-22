@@ -308,7 +308,11 @@ jobs:
         ref: ${{ needs.checkout-branch.outputs.PR_head_ref }}
         submodules: true
         fetch-depth: 0
-    - name: Commit and push schema updates
+    - name: Set up Bot user
+      run: |
+        git config --global user.email "ci-bot@example.com"
+        git config --global user.name "CI Bot"
+    - name: Commit and push schema changes
       run: |
         git add schema/openapi.yaml schema/schema.graphql
         git commit -m "CI commiting detected Schema changes"
