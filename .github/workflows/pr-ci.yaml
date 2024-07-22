@@ -316,20 +316,22 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: openapi-diff
-        path: ./openapi.diff
+        path: /home/runner/work/cryostat/cryostat/openapi.diff
     - name: Download GraphQL diff
       uses: actions/download-artifact@v3
       with:
         name: graphql-diff
-        path: ./graphql.diff
+        path: /home/runner/work/cryostat/cryostat/graphql.diff
+    - name: List downloaded files
+      run: ls -l /home/runner/work/cryostat/cryostat/
     - name: Apply OpenAPI diff
       if: needs.update-schemas.outputs.OPENAPI_STATUS != '0'
       run: |
-        patch -p1 < ./openapi.diff
+        patch -p1 < /home/runner/work/cryostat/cryostat/openapi.diff
     - name: Apply GraphQL diff
       if: needs.update-schemas.outputs.GRAPHQL_STATUS != '0'
       run: |
-        patch -p1 < ./graphql.diff
+        patch -p1 < /home/runner/work/cryostat/cryostat/graphql.diff
     - name: Commit and push schema changes
       run: |
         git add schema/openapi.yaml schema/schema.graphql
@@ -347,4 +349,3 @@ jobs:
             repo: context.repo.repo,
             body: comment
           });
-    #
