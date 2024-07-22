@@ -297,7 +297,7 @@ jobs:
           });
 
   auto-commit-schemas:
-    needs: [update-schemas, checkout-branch]
+    needs: [compare-graphql-schema, compare-openapi-schema, checkout-branch, update-schemas]
     runs-on: ubuntu-latest
     if: needs.update-schemas.outputs.OPENAPI_STATUS != '0' || needs.update-schemas.outputs.GRAPHQL_STATUS != '0'
     steps:
@@ -313,7 +313,20 @@ jobs:
         git config --global user.email "ci-bot@example.com"
         git config --global user.name "CI Bot"
     - name: Commit and push schema changes
+      id: check_changes
       run: |
         git add schema/openapi.yaml schema/schema.graphql
         git commit -m "CI commiting detected Schema changes"
         git push origin ${{ needs.checkout-branch.outputs.PR_head_ref }}
+    - name: Comment on schema update
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const prNumber = ${{ needs.checkout-branch.outputs.PR_num }};
+          const comment = "Schema changes have been detected and automatically committed by the CI.";
+          github.rest.issues.createComment({
+            issue_number: prNumber,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
