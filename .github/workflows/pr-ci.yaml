@@ -312,6 +312,10 @@ jobs:
       run: |
         git config --global user.email "ci-bot@example.com"
         git config --global user.name "CI Bot"
+    - name: Fetch and update schema changes
+      run: |
+        git fetch origin
+        git checkout ${{ needs.checkout-branch.outputs.PR_head_ref }}
     - name: Commit and push schema changes
       id: check_changes
       run: |
