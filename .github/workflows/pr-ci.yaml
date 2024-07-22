@@ -312,11 +312,25 @@ jobs:
       run: |
         git config --global user.email "ci-bot@example.com"
         git config --global user.name "CI Bot"
-    - name: Fetch and update schema changes
+        - name: Download OpenAPI diff
+        uses: actions/download-artifact@v3
+        with:
+          name: openapi-diff
+          path: openapi.diff
+    - name: Download GraphQL diff
+      uses: actions/download-artifact@v3
+      with:
+        name: graphql-diff
+        path: graphql.diff
+    - name: Apply OpenAPI diff
+      if: needs.update-schemas.outputs.OPENAPI_STATUS != '0'
       run: |
-        git fetch ${{ needs.checkout-branch.outputs.PR_head_ref }}
+        patch -p1 < openapi.diff
+    - name: Apply GraphQL diff
+      if: needs.update-schemas.outputs.GRAPHQL_STATUS != '0'
+      run: |
+        patch -p1 < graphql.diff
     - name: Commit and push schema changes
-      id: check_changes
       run: |
         git add schema/openapi.yaml schema/schema.graphql
         git commit -m "CI commiting detected Schema changes"
