@@ -342,7 +342,7 @@ jobs:
       - name: Commit and push schema changes
         run: |
           git add schema/openapi.yaml schema/schema.graphql
-          git commit -m "chore(schema): automatic update"
+          git commit -S -m "chore(schema): automatic update"
           git push origin ${{ needs.checkout-branch.outputs.PR_head_ref }}
       - name: Comment on schema update
         uses: actions/github-script@v6
