@@ -258,6 +258,7 @@ input ActiveRecordingsFilterInput {
 input ArchivedRecordingsFilterInput {
   archivedTimeAfterEqual: BigInteger
   archivedTimeBeforeEqual: BigInteger
+  description: String
   labels: [String]
   name: String
   names: [String]
