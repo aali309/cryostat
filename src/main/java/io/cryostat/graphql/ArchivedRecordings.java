@@ -108,7 +108,7 @@ public class ArchivedRecordings {
         public @Nullable Long sizeBytesLessThanEqual;
         public @Nullable Long archivedTimeAfterEqual;
         public @Nullable Long archivedTimeBeforeEqual;
-        public @Nullable String description; // New optional field for providing additional context
+        public @Nullable String description; // New optional field
 
 
         @Override
