@@ -333,11 +333,15 @@ jobs:
         if: needs.update-schemas.outputs.OPENAPI_STATUS != '0'
         run: |
           patch -p1 < diffs/openapi.diff
+          echo "Contents of OpenAPI schema after patch:"
+          cat schema/openapi.yaml
 
       - name: Apply GraphQL diff
         if: needs.update-schemas.outputs.GRAPHQL_STATUS != '0'
         run: |
           patch -p1 < diffs/graphql.diff
+          echo "Contents of GraphQL schema after patch:"
+          cat schema/schema.graphql
 
       - name: Commit and push schema changes
         run: |
