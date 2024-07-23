@@ -110,7 +110,6 @@ public class ArchivedRecordings {
         public @Nullable Long archivedTimeBeforeEqual;
         public @Nullable String description; // New optional field
 
-
         @Override
         public boolean test(ArchivedRecording r) {
             Predicate<ArchivedRecording> matchesName =
