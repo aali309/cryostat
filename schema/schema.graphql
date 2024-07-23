@@ -299,6 +299,7 @@ input RecordingSettingsInput {
   metadata: RecordingMetadataInput
   name: String!
   names: [String]
+  someNames: [String]
   replace: String
   template: String!
   templateType: String!
