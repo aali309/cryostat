@@ -298,8 +298,6 @@ input RecordingSettingsInput {
   maxSize: BigInteger
   metadata: RecordingMetadataInput
   name: String!
-  names: [String]
-  someNames: [String]
   replace: String
   template: String!
   templateType: String!
