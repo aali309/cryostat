@@ -45,7 +45,7 @@ public class Events {
     @Inject Logger logger;
 
     @GET
-    @Path("/api/v1/targets/{connectUrl}/events")
+    @Path("/api/v11/targets/{connectUrl}/events")
     @RolesAllowed("read")
     public Response listEventsV1(@RestPath URI connectUrl, @RestQuery String q) throws Exception {
         logger.tracev("connectUrl: %s", connectUrl.toString());

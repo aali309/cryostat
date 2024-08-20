@@ -741,7 +741,7 @@ class GraphQLTest extends StandardSelfTest {
         webClient
                 .get(
                         String.format(
-                                "/api/v44/targets/%s/recordings",
+                                "/api/v1/targets/%s/recordings",
                                 getSelfReferenceConnectUrlEncoded()))
                 .send(
                         ar -> {
